@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.maven.dao.UserMapper">
+
+    <select id="selectUserById" resultType="com.itheima.maven.User" parameterType="integer">
+        SELECT *  FROM user WHERE id = #{id}
+    </select>
+    <update id="updateById" parameterType="com.itheima.maven.User">
+        UPDATE user SET username =#{username},birthday = #{birthday} ,sex = #{sex} , address = #{address} WHERE id =#{id}
+    </update>
+    <insert id="insertUser" parameterType="com.itheima.maven.User">
+        <selectKey resultType="int" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO user(username,birthday,sex,address) VALUES(#{username},#{birthday},#{sex},#{address})
+    </insert>
+</mapper>
